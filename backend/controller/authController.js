@@ -50,11 +50,15 @@ export const Login = async (req,res)=>{
                 success:false
             })
         }
+        const user = await User.findOne({email});
+        if(!user){
+            return res.status(401).jsom({
+                message:"User not found",
+                success:false
+            })
+        }
     }
     catch(error){
-        return res.status(500).json({
-            message: "Internal server error",
-            success: false
-        });
+
     }
 }
