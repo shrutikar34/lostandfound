@@ -1,6 +1,10 @@
 import {User} from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config({
+    path:"../controller/.env"
+});
 
 export const Register = async (req,res)=>{
     try{
@@ -57,8 +61,36 @@ export const Login = async (req,res)=>{
                 success:false
             })
         }
+        const isMatch = await bcrypt.compare(password,user.password);
+        if(!isMatch){
+            return res.status(401).json({
+                message:"Incorrect password or email",
+                success:false
+            })
+        }
+        const tokenData ={
+            userId:user._id,
+        }
+        const token = jwt.sign(tokenData,process.env.JWT_SECRET,{
+            expiresIn:"1d"
+        });
+        
+        return res.status(201).cookie("token",token,{expiresIn:"1d",httpOnly:true}).json({
+            message:`Welcome back ${user.name}`,
+            success:true
+        })
     }
     catch(error){
-
+        return res.status(500).json({
+            message: "Internal server error",
+            success: false
+        });
     }
+}
+
+export const Logout = (req,res)=>{
+    return res.cookie("token","", {expiresIn:new Date(Date.now())}).json({
+        message:"Logout successfully",
+        success:true
+    })
 }
