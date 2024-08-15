@@ -2,7 +2,7 @@ import React, { useEffect, useReducer } from "react";
 import { createContext } from "react";
 export const context = createContext({
   allfounditem: [],
-  alllostitems:[],
+  alllostitems: [],
   addItem: () => {},
 });
 function reducer(currentstate, action) {
@@ -46,7 +46,9 @@ export default function Storage({ children }) {
   }
   return (
     <div>
-      <context.Provider value={{ allfounditem: state, alllostitems:state,addItem }}>
+      <context.Provider
+        value={{ allfounditem: state, alllostitems: state, addItem }}
+      >
         {children}
       </context.Provider>
       ;
