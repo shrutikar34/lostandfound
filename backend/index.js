@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/database.js";
 import cookieParser from "cookie-parser";
 import auth from "./routes/authRoute.js";
+import lost from "./routes/lostRoute.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(cookieParser());
 
 //api
 app.use("/api/v1/auth", auth);
+app.use("/api/v1/lost", lost);
 
 app.get("/", (req, res) => {
     res.send("Hello World!");

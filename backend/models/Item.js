@@ -1,5 +1,4 @@
 // this is for the lost items report
-
 import mongoose from "mongoose";
 import { z } from "zod";
 
@@ -9,7 +8,7 @@ const ItemSchemaZod = z.object({
     category: z.string().min(1, "Category is required"),
     description: z.string().min(3, "Description is required"),
     location: z.string().min(5, "Location is required"),
-    date: z.date(),
+    date: z.string().min(10, "Date is required"),
     contact: z.string().regex(/^\d{10}$/, "Contact number must be exactly 10 digits"),
     // status: z.enum(["lost", "found"]),
     image: z.string().optional(),
@@ -22,7 +21,7 @@ const ItemSchema = new mongoose.Schema({
     category: { type: String, required: true },
     description: { type: String, required: true },
     location: { type: String, required: true },
-    date: { type: Date, required: true },
+    date: { type: String, required: true },
     // status: { type: String, enum: ["lost", "found"], required: true },
     image: { type: String },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
