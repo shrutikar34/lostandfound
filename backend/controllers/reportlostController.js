@@ -34,3 +34,31 @@ export const createReport = async (req, res) => {
     });
   }
 };
+
+export const deleteReport = async(req,res)=>{
+  try{
+    const {id} = req.params;
+    
+    const deletedItem = await Item.findByIdAndDelete(id);
+
+    if(!deletedItem){
+      return res.status(404).json({
+        message: "Item not found",
+        success: false
+      })
+    }
+
+    return res.status(200).json({
+      message: "Item deleted successfully",
+      success: true
+    })
+  }
+  catch(error){
+    console.error("Error in deleteReport:", error);
+    return res.status(400).json({
+      message: error.errors ? error.errors[0].message : "Invalid input data",
+      success: false
+    })
+  }
+}
+
