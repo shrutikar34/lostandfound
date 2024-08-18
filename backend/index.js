@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/database.js";
 import cookieParser from "cookie-parser";
 import auth from "./routes/authRoute.js";
-import lost from "./routes/lostRoute.js";
+import lost from "./routes/itemRoute.js";
 
 const app = express();
 
