@@ -1,8 +1,8 @@
-import { jwt } from "jsonwebtoken";
+import  jwt  from "jsonwebtoken";
 import dotenv from "dotenv";
 
 dotenv.config({
-    path:"../config/.env"
+    path:"../middleware/.env"
 });
 
 const isAuthenticated = async (req, res, next) => {
@@ -16,11 +16,10 @@ const isAuthenticated = async (req, res, next) => {
             })
         }
 
-        const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         console.log(decoded);
         req.user = decoded.userId;
         next();
-        
     }
     catch(error){
         return res.status(500).json({
