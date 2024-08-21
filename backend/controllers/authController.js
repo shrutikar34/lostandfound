@@ -58,7 +58,7 @@ export const Login = async (req, res) => {
 
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).jsom({
+      return res.status(401).json({
         message: "User not found",
         success: false,
       });

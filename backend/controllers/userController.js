@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 export const getMyProfile = async (req, res) => {
     try{
         const id = req.params.id;
-        const user = await User.findById(id);
+        const user = await User.findById(id).select("-password -phone");
 
         if(!user){
             return res.status(404).json({
@@ -41,7 +41,7 @@ export const updateMyProfile = async (req, res) => {
         if(password) updatedData.password = await bcrypt.hash(password, 10);
         if(phone) updatedData.phone = await bcrypt.hash(phone, 10);
 
-        const updatedProfile = await User.findByIdAndUpdate(req.user._id, updatedData, {new:true, select:"-password -phone"});
+        const updatedProfile = await User.findByIdAndUpdate(req.user, updatedData, {new:true, select:"-password -phone"});
 
         if(!updatedProfile){
             return res.status(404).json({
@@ -76,6 +76,10 @@ export const deleteMyProfile = async (req, res) => {
                 success:false,
             })
         }
+        return res.status(200).json({
+            message:"User deleted successfully",
+            success:true
+        })
     }
     catch(error){
         console.error("Error in deleteMyProfile:", error);
