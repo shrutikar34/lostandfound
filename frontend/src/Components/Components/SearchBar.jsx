@@ -5,12 +5,12 @@ export default function SearchBar() {
   return (
     <div>
       <div
-        className={`input-group ${styles.searchbar}`}
+        className={`input-group  ${styles.searchbar}`}
         style={{ width: "50%" }}
       >
         <input
-          type="text"
-          className={`form-control shadow`}
+          type="search"
+          className="form-control shadow"
           placeholder="Search...."
         />
         <span className="input-group-text" id="basic-addon2">

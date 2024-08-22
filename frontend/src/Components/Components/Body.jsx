@@ -3,7 +3,7 @@ import ReportCard from "./ReportCard";
 import styles from "./Body.module.css";
 export default function Body() {
   return (
-    <div className={styles.body}>
+    <div className={`${styles.body}`}>
       <ReportCard
         title={"Report Lost Item"}
         body={"Fill up the form to report lost item."}

@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 export default function ReportCard({ title, body, link }) {
   return (
     <div>
-      <div className="card" style={{ width: "18rem" }}>
-        <div className="card-body">
+      <div className="card shadow " style={{ width: "18rem" }}>
+        <div className="card-body ">
           <h5 className="card-title">{title}</h5>
           <p className="card-text">{body}</p>
           <Link

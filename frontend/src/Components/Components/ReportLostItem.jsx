@@ -1,9 +1,8 @@
 import React, { useContext, useRef } from "react";
 import { context } from "./Store/Storage";
-
-export default function ReportFoundItem() {
-  const { addItem } = useContext(context);
-  const founditem = useRef("");
+export default function ReportLostItem() {
+  const { add_Item_Lost } = useContext(context);
+  const lostitem = useRef("");
   const description = useRef("");
   const location = useRef("");
   const date = useRef("");
@@ -11,44 +10,43 @@ export default function ReportFoundItem() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    const founditemvalue = founditem.current.value;
+    const lostitemvalue = lostitem.current.value;
     const descriptionvalue = description.current.value;
     const locationvalue = location.current.value;
     const datevalue = date.current.value;
     const contactvalue = contact.current.value;
 
-    fetch('http://localhost:3000/posts', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    fetch("http://localhost:3000/postslost", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        userId:1,
-        title: founditemvalue,
+        userId: 1,
+        title: lostitemvalue,
         description: descriptionvalue,
-        location:locationvalue,
-        date:datevalue,
-        contact:contactvalue
-       
-      })
+        location: locationvalue,
+        date: datevalue,
+        contact: contactvalue,
+      }),
     })
-    .then(res => res.json())
-    .then(data => {console.log(data);addItem(data)});
-    
+      .then((res) => res.json())
+      .then((data) => {
+        add_Item_Lost(data);
+      });
   }
-
   return (
     <>
-      <div className="box">
+      <div className="box shadow w-auto ">
         <form className="row g-3" onSubmit={handleSubmit}>
           <div className="col-md-6">
             <label htmlFor="lostitemname" className="form-label">
-              Found Item
+              Lost Item
             </label>
             <input
               type="text"
               className="form-control"
               id="lostitemname"
-              placeholder="What did you find?"
-              ref={founditem}
+              placeholder="What did you loose?"
+              ref={lostitem}
             />
           </div>
           <div className="col-md-6">
@@ -59,7 +57,7 @@ export default function ReportFoundItem() {
               type="text"
               className="form-control"
               id="description"
-              placeholder="Enter dome details abour the found item ...."
+              placeholder="Enter dome details abour your lost item ...."
               ref={description}
             />
           </div>
@@ -71,18 +69,9 @@ export default function ReportFoundItem() {
               type="text"
               className="form-control"
               id="location"
-              placeholder="Where did you find the item ?"
+              placeholder="Where did you last see your item ?"
               ref={location}
             />
-          </div>
-
-          <div className="col-md-4">
-            <label htmlFor="date" className="form-label">
-              Date
-            </label>
-            <div id="date">
-              <input type="date" className="form-control" ref={date} />
-            </div>
           </div>
 
           <div className="col-md-4">
@@ -91,6 +80,14 @@ export default function ReportFoundItem() {
             </label>
             <div id="contact">
               <input type="number" className="form-control" ref={contact} />
+            </div>
+          </div>
+          <div className="col-md-4">
+            <label htmlFor="date" className="form-label">
+              Date
+            </label>
+            <div id="date">
+              <input type="date" className="form-control" ref={date}></input>
             </div>
           </div>
           <div className="col-12">

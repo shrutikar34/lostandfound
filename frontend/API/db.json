@@ -1,0 +1,92 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "Cat",
+      "description": "a description",
+      "location": "location",
+      "date": "date",
+      "contact": "Number"
+    },
+    {
+      "id": "2",
+      "title": "Dog",
+      "description": "a description",
+      "location": "location",
+      "date": "date",
+      "contact": "Number"
+    },
+    {
+      "id": "3",
+      "title": "Pencil Box",
+      "description": "a description",
+      "location": "location",
+      "date": "date",
+      "contact": "Number"
+    },
+    {
+      "id": "4",
+      "title": " Box",
+      "description": "a description",
+      "location": "location",
+      "date": "date",
+      "contact": "Number"
+    },
+    {
+      "id": "8893",
+      "userId": 1,
+      "title": "nishant",
+      "description": "iiii",
+      "location": "fgggg",
+      "date": "2024-08-16",
+      "contact": "8999"
+    },
+    {
+      "id": "184b",
+      "userId": 1,
+      "title": "peace",
+      "description": "some Peace",
+      "location": "school",
+      "date": "2024-08-08",
+      "contact": "333333"
+    }
+  ],
+  "postslost": [
+    {
+      "id": "52c8",
+      "userId": 1,
+      "title": "Mukesh",
+      "description": "Life",
+      "location": "Movie",
+      "date": "19/12/2021",
+      "contact": "90909090"
+    },
+    {
+      "id": "1291",
+      "userId": 1,
+      "title": "e",
+      "description": "E",
+      "location": "L",
+      "date": "19/12/24",
+      "contact": "99090909"
+    },
+    {
+      "id": "19f1",
+      "userId": 1,
+      "title": "you",
+      "description": "you",
+      "location": "you",
+      "date": "2024-08-15",
+      "contact": "-179989"
+    },
+    {
+      "id": "8e76",
+      "userId": 1,
+      "title": "l",
+      "description": "ededed",
+      "location": "d",
+      "date": "2024-08-26",
+      "contact": "4444444"
+    }
+  ]
+}
