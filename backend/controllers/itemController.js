@@ -11,6 +11,8 @@ export const createItem = async (req, res) => {
       date: req.body.date, // Convert the date string to a Date object
     };
 
+    console.log("Item data:", itemData); // Log the item data
+
     // Validate the input using Zod
     const validatedData = ItemSchemaZod.parse(itemData);
 
@@ -96,7 +98,12 @@ export const updatedItem = async (req, res) => {
 export const getLostItems = async (req, res) => {
   try {
     const { page = 1, limit = 10, search } = req.query;
-    const query = search ? { nameItem: { $regex: search, $options: 'i' } } : {};
+    const query = search 
+      ? { 
+          nameItem: { $regex: search, $options: 'i' },
+          status: "lost"
+        } 
+      : { status: "lost" };
 
     const items = await Item.find(query)
       .limit(limit * 1)
@@ -106,10 +113,20 @@ export const getLostItems = async (req, res) => {
 
     const count = await Item.countDocuments(query);
 
+    if (items.length === 0) {
+      // If no items are found
+      return res.status(200).json({
+        message: "No such available item",
+        success: false
+      });
+    }
+
+    // If items are found, send them in the response
     return res.status(200).json({
       items,
       totalPages: Math.ceil(count / limit),
-      currentPage: page
+      currentPage: page,
+      success: true
     });
   } catch (error) {
     console.error("Error in getLostItems:", error);
