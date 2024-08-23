@@ -1,0 +1,63 @@
+.box:hover
+{
+    
+    background-color: rgb(237, 243, 246);
+    border-radius: 5px;
+    padding: 5px 5px;
+}
+nav .menu
+{
+
+    display: none;
+    position: absolute;
+    top:20px;
+    flex-direction: column;
+    height: 40px;
+    width: 40px;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    border: solid 1px rgb(3, 92, 133);
+    box-shadow: 1px 1px rgb(3, 92, 133);
+    border-radius: 2px;
+    padding: 5px 5px;
+
+
+
+}
+nav ul.open
+{
+    display: flex;
+}
+nav .menu span
+{
+  
+    height: 15%;
+    width: 100%; 
+background-color:white;
+display: flex;
+flex-direction: column;
+border-radius: 2px;
+
+}
+@media(max-width:500px)
+{
+nav .menu
+{
+    display: flex;
+}
+nav 
+{
+    display: none;
+    flex-direction: column;
+    align-items: start;
+}
+nav ul
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+
+}
+
+}
