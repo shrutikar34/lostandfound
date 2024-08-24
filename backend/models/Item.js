@@ -12,7 +12,7 @@ const ItemSchemaZod = z.object({
     location: z.string().min(5, "Location is required"),
     date: z.string().min(10, "Date is required"),
     contact: z.string().regex(/^\d{10}$/, "Contact number must be exactly 10 digits").optional(),
-    status: z.enum(["lost", "found"]).default("lost"),
+    status: z.enum(["lost", "found"]).default("lost"), // Allow optional and set default to "lost"
     image: z.string().optional(),
     user: z.string().min(1, "User ID is required"), // We use z.string here, validation of ObjectId is handled by Mongoose
 });
@@ -25,7 +25,7 @@ const ItemSchema = new mongoose.Schema({
     location: { type: String, required: true },
     date: { type: String, required: true },
     status: { type: String, enum: ["lost", "found"], default: "lost" ,required: true},
-    contact: { type: String },
+    contact: { type: String},
     image: { type: String },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     createdAt: { type: Date, default: Date.now },
