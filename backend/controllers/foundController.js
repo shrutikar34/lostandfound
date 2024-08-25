@@ -6,6 +6,7 @@ export const createFoundItem = async (req, res) => {
       ...req.body,
       finder: req.user,
       date: req.body.date,
+      image: req.file ? req.file.path : null,
     });
 
     console.log("Validated data", validatedData);
@@ -61,7 +62,11 @@ export const deleteFoundItem = async (req, res) => {
 export const updateFoundItem = async (req, res) => {
   try {
     const { id } = req.params;
-    const validatedData = FoundSchemaZod.partial().parse(req.bpdy);
+
+    const validatedData = FoundSchemaZod.partial().parse({
+      ...req.body,
+      image: req.file ? req.file.path : null,
+    });
 
     const updatedFound = await Found.findByIdAndUpdate(id, validatedData, {
       new: true,

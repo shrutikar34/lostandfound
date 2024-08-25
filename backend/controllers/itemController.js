@@ -1,6 +1,6 @@
 import { Item, ItemSchemaZod } from "../models/Item.js";
 
-export const createItem = async (req, res) => {
+export const createItem = async (req, res, next) => {
   try {
     // console.log("Request body:", req.body); // Log the request body
 
@@ -9,6 +9,7 @@ export const createItem = async (req, res) => {
       ...req.body,
       user: req.user, // Use the user ID from the authentication middleware
       date: req.body.date, // Convert the date string to a Date object
+      image: req.file ? req.file.path : null,
     };
 
     console.log("Item data:", itemData); // Log the item data
@@ -21,7 +22,7 @@ export const createItem = async (req, res) => {
 
     // Save the item
     const savedItem = await newItem.save();
-    // console.log("Saved item:", savedItem); // Log the saved item
+    console.log("Saved item:", savedItem); // Log the saved item
 
     return res.status(201).json({
       message: "Report created successfully",
@@ -66,9 +67,11 @@ export const deleteItem = async (req, res) => {
 export const updatedItem = async (req, res) => {
   try {
     const { id } = req.params;
-    const updatedData = req.body;
-
-    const validatedData = ItemSchemaZod.partial().parse(updatedData);
+    
+    const validatedData = ItemSchemaZod.partial().parse({
+      ...req.body,
+      image: req.file ? req.file.path : null,
+    });
 
     const updatedItem = await Item.findByIdAndUpdate(id, validatedData, {
       new: true,
