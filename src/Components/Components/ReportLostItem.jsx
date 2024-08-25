@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from "react";
 import { context } from "./Store/Storage";
 import { Navigate, redirect, useNavigate } from "react-router-dom";
+import ImageInput from "./ImageInput";
 export default function ReportLostItem() {
   const { add_Item_Lost } = useContext(context);
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ export default function ReportLostItem() {
   const location = useRef("");
   const date = useRef("");
   const contact = useRef("");
+  const category = useRef(null);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -17,6 +19,7 @@ export default function ReportLostItem() {
     const locationvalue = location.current.value;
     const datevalue = date.current.value;
     const contactvalue = contact.current.value;
+    const categoryvalue = category.current.value;
 
     fetch("http://localhost:3000/postslost", {
       method: "POST",
@@ -28,6 +31,7 @@ export default function ReportLostItem() {
         location: locationvalue,
         date: datevalue,
         contact: contactvalue,
+        category: categoryvalue,
       }),
     })
       .then((res) => res.json())
@@ -63,6 +67,18 @@ export default function ReportLostItem() {
               placeholder="Enter dome details abour your lost item ...."
               ref={description}
             />
+            <div className="col-md-6">
+              <label htmlFor="Category" className="form-label mt-2">
+                Category
+              </label>
+              <select className="form-select" ref={category}>
+                <option>Select category</option>
+                <option value="electronics">Electronics</option>
+                <option value="clothing">Clothing</option>
+                <option value="documents">Documents</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
           </div>
           <div className="col-12">
             <label htmlFor="location" className="form-label">
@@ -93,6 +109,7 @@ export default function ReportLostItem() {
               <input type="date" className="form-control" ref={date}></input>
             </div>
           </div>
+          <ImageInput />
           <div className="col-12">
             <button type="submit" className="btn btn-primary hover:bg-sky-700">
               Submit
