@@ -1,13 +1,19 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { context } from "./Store/Storage";
+import { useNavigate } from "react-router-dom";
+import ImageInput from "./ImageInput";
 
 export default function ReportFoundItem() {
+  
   const { addItem } = useContext(context);
+  const navigate = useNavigate();
+
   const founditem = useRef("");
   const description = useRef("");
   const location = useRef("");
   const date = useRef("");
   const contact = useRef("");
+  const category = useRef(null);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -16,6 +22,7 @@ export default function ReportFoundItem() {
     const locationvalue = location.current.value;
     const datevalue = date.current.value;
     const contactvalue = contact.current.value;
+    const categoryvalue = category.current.value;
 
     fetch("http://localhost:3000/posts", {
       method: "POST",
@@ -27,12 +34,13 @@ export default function ReportFoundItem() {
         location: locationvalue,
         date: datevalue,
         contact: contactvalue,
+        category: categoryvalue,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         addItem(data);
-        alert("Submitted!");
+        navigate("/browsefounditem");
       });
   }
 
@@ -63,7 +71,20 @@ export default function ReportFoundItem() {
               placeholder="Enter dome details abour the found item ...."
               ref={description}
             />
+            <div className="col-md-6">
+              <label htmlFor="Category" className="form-label mt-2">
+                Category
+              </label>
+              <select className="form-select" ref={category}>
+                <option>Select category</option>
+                <option value="electronics">Electronics</option>
+                <option value="clothing">Clothing</option>
+                <option value="documents">Documents</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
           </div>
+
           <div className="col-12">
             <label htmlFor="location" className="form-label">
               Location
@@ -94,6 +115,7 @@ export default function ReportFoundItem() {
               <input type="tel" className="form-control" ref={contact} />
             </div>
           </div>
+          <ImageInput/>
           <div className="col-12">
             <button type="submit" className="btn btn-primary hover:bg-sky-700">
               Submit
