@@ -1,5 +1,5 @@
-import { Found, FoundSchemaZod } from "../models/Found";
-import { Item, ItemSchemaZod } from "../models/Item";
+import { Found, FoundSchemaZod } from "../models/Found.js";
+import { Item } from "../models/Item.js";
 export const createFoundItem = async (req, res) => {
   try {
     const validatedData = FoundSchemaZod.parse({
@@ -16,7 +16,7 @@ export const createFoundItem = async (req, res) => {
 
     await Item.findByIdAndUpdate(validatedData.item, {
         status: "found",
-        // foundBy: savedFound._id,
+        // finder: req.user._id,
     })
     return res.status(201).json({
       message: "Report created successfully",
