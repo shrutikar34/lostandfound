@@ -1,8 +1,10 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { context } from "./Store/Storage";
 import { useNavigate } from "react-router-dom";
+import ImageInput from "./ImageInput";
 
 export default function ReportFoundItem() {
+  
   const { addItem } = useContext(context);
   const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ export default function ReportFoundItem() {
         location: locationvalue,
         date: datevalue,
         contact: contactvalue,
-        category:categoryvalue
+        category: categoryvalue,
       }),
     })
       .then((res) => res.json())
@@ -113,6 +115,7 @@ export default function ReportFoundItem() {
               <input type="tel" className="form-control" ref={contact} />
             </div>
           </div>
+          <ImageInput/>
           <div className="col-12">
             <button type="submit" className="btn btn-primary hover:bg-sky-700">
               Submit

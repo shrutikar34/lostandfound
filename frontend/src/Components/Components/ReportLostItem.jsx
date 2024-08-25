@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from "react";
 import { context } from "./Store/Storage";
 import { Navigate, redirect, useNavigate } from "react-router-dom";
+import ImageInput from "./ImageInput";
 export default function ReportLostItem() {
   const { add_Item_Lost } = useContext(context);
   const navigate = useNavigate();
@@ -108,6 +109,7 @@ export default function ReportLostItem() {
               <input type="date" className="form-control" ref={date}></input>
             </div>
           </div>
+          <ImageInput />
           <div className="col-12">
             <button type="submit" className="btn btn-primary hover:bg-sky-700">
               Submit
