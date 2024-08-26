@@ -104,7 +104,7 @@ export const getFoundItems = async (req, res) => {
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .populate("finder", "name email")
-      .populate("item", "nameItem category")
+      // .populate("item", "nameItem category")
       .exec();
 
     const count = await Found.countDocuments(query);
@@ -128,7 +128,7 @@ export const getSingleFoundItem = async (req, res) => {
         const { id } = req.params;
         const foundItem = await Found.findById(id)
             .populate('finder', 'name email')
-            .populate('item', 'nameItem category');
+            // .populate('item', 'nameItem category');
 
         if (!foundItem) {
             return res.status(404).json({

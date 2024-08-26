@@ -26,6 +26,7 @@ app.use("/api/v1/auth", auth);
 app.use("/api/v1/item", item);
 app.use("/api/v1/user", user);
 app.use("/api/v1/found", found);
+app.use("/uploads", express.static("uploads"));
 
 app.get("/", (req, res) => {
     res.send("Hello World!");
