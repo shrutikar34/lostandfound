@@ -27,7 +27,7 @@ export default function ImageInput() {
         />
       </div>
       <div className="d-flex justify-content-center">
-        <div className="btn btn-primary btn-rounded">
+        <div className="btn btn-primary btn-rounded ">
           <label className="form-label text-white m-1" htmlFor="image">
             Choose file
           </label>
