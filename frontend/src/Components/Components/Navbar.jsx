@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
@@ -33,6 +33,18 @@ export default function Navbar() {
               Contact Us
             </Link>
           </li>
+          <div className="flex space-x-1 mr-auto">
+            <li className={`nav-item  mt-4`}>
+              <button type="button" class="btn btn-primary">
+                Login
+              </button>
+            </li>
+            <li className={`nav-item mt-4`}>
+              <button type="button" class="btn btn-success">
+                Signup
+              </button>
+            </li>
+          </div>
         </ul>
       </nav>
     </>
