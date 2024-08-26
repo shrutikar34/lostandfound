@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import auth from "./routes/authRoute.js";
 import item from "./routes/itemRoute.js";
 import user from "./routes/userRoute.js";
+import found from "./routes/foundRoutes.js";
 
 const app = express();
 
@@ -23,7 +24,9 @@ app.use(cookieParser());
 //api
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/item", item);
-app.use("/api/v1/user", user)
+app.use("/api/v1/user", user);
+app.use("/api/v1/found", found);
+app.use("/uploads", express.static("uploads"));
 
 app.get("/", (req, res) => {
     res.send("Hello World!");

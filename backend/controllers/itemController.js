@@ -1,6 +1,6 @@
 import { Item, ItemSchemaZod } from "../models/Item.js";
 
-export const createItem = async (req, res) => {
+export const createItem = async (req, res, next) => {
   try {
     // console.log("Request body:", req.body); // Log the request body
 
@@ -9,7 +9,10 @@ export const createItem = async (req, res) => {
       ...req.body,
       user: req.user, // Use the user ID from the authentication middleware
       date: req.body.date, // Convert the date string to a Date object
+      image: req.file ? req.file.path : null,
     };
+
+    console.log("Item data:", itemData); // Log the item data
 
     // Validate the input using Zod
     const validatedData = ItemSchemaZod.parse(itemData);
@@ -19,7 +22,7 @@ export const createItem = async (req, res) => {
 
     // Save the item
     const savedItem = await newItem.save();
-    // console.log("Saved item:", savedItem); // Log the saved item
+    console.log("Saved item:", savedItem); // Log the saved item
 
     return res.status(201).json({
       message: "Report created successfully",
@@ -64,9 +67,11 @@ export const deleteItem = async (req, res) => {
 export const updatedItem = async (req, res) => {
   try {
     const { id } = req.params;
-    const updatedData = req.body;
-
-    const validatedData = ItemSchemaZod.partial().parse(updatedData);
+    
+    const validatedData = ItemSchemaZod.partial().parse({
+      ...req.body,
+      image: req.file ? req.file.path : null,
+    });
 
     const updatedItem = await Item.findByIdAndUpdate(id, validatedData, {
       new: true,
@@ -96,7 +101,12 @@ export const updatedItem = async (req, res) => {
 export const getLostItems = async (req, res) => {
   try {
     const { page = 1, limit = 10, search } = req.query;
-    const query = search ? { nameItem: { $regex: search, $options: 'i' } } : {};
+    const query = search 
+      ? { 
+          nameItem: { $regex: search, $options: 'i' },
+          status: "lost"
+        } 
+      : { status: "lost" };
 
     const items = await Item.find(query)
       .limit(limit * 1)
@@ -106,10 +116,20 @@ export const getLostItems = async (req, res) => {
 
     const count = await Item.countDocuments(query);
 
+    if (items.length === 0) {
+      // If no items are found
+      return res.status(200).json({
+        message: "No such available item",
+        success: false
+      });
+    }
+
+    // If items are found, send them in the response
     return res.status(200).json({
       items,
       totalPages: Math.ceil(count / limit),
-      currentPage: page
+      currentPage: page,
+      success: true
     });
   } catch (error) {
     console.error("Error in getLostItems:", error);
