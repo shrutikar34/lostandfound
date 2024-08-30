@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function ImageInput() {
+export default function ImageInput({ onImageChange }) {
   const [selectedImage, setSelectedImage] = useState("./image/image.png");
   const handleImageChange = (event) => {
     const file = event.target.files[0]; // Get the selected file
@@ -10,7 +10,10 @@ export default function ImageInput() {
 
       // Set up the FileReader to handle the file
       reader.onloadend = () => {
-        setSelectedImage(reader.result); // Update state with the image data URL
+        const dataUrl = reader.result;
+        setSelectedImage(dataUrl); // Update state with the image data URL
+        onImageChange(dataUrl); // Pass the data URL to the parent
+        
       };
 
       // Read the file as a data URL

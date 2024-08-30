@@ -1,8 +1,14 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { context } from "./Store/Storage";
 import { Navigate, redirect, useNavigate } from "react-router-dom";
 import ImageInput from "./ImageInput";
 export default function ReportLostItem() {
+  const [imageSrc, setImageSrc] = useState("");
+
+  const handleImageChange = (dataUrl) => {
+    setImageSrc(dataUrl);
+  };
+
   const { add_Item_Lost } = useContext(context);
   const navigate = useNavigate();
   const lostitem = useRef("");
@@ -32,6 +38,7 @@ export default function ReportLostItem() {
         date: datevalue,
         contact: contactvalue,
         category: categoryvalue,
+        url: imageSrc,
       }),
     })
       .then((res) => res.json())
@@ -109,7 +116,7 @@ export default function ReportLostItem() {
               <input type="date" className="form-control" ref={date}></input>
             </div>
           </div>
-          <ImageInput />
+          <ImageInput onImageChange={handleImageChange} />
           <div className="col-12">
             <button type="submit" className="btn btn-primary hover:bg-sky-700">
               Submit

@@ -4,7 +4,12 @@ import { useNavigate } from "react-router-dom";
 import ImageInput from "./ImageInput";
 
 export default function ReportFoundItem() {
-  
+  const [imageSrc, setImageSrc] = useState("");
+
+  const handleImageChange = (dataUrl) => {
+    setImageSrc(dataUrl);
+  };
+
   const { addItem } = useContext(context);
   const navigate = useNavigate();
 
@@ -115,7 +120,7 @@ export default function ReportFoundItem() {
               <input type="tel" className="form-control" ref={contact} />
             </div>
           </div>
-          <ImageInput/>
+          <ImageInput onImageChange={handleImageChange} />
           <div className="col-12">
             <button type="submit" className="btn btn-primary hover:bg-sky-700">
               Submit

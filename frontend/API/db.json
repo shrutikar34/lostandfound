@@ -1,6 +1,7 @@
 {
   "posts": [
     {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/800px-Cat03.jpg",
       "id": "1",
       "title": "Cat",
       "description": "a description",
@@ -8,28 +9,19 @@
       "location": "location",
       "date": "date",
       "contact": "Number"
-    },
-    {
-      "id": "ae4d",
-      "userId": 1,
-      "title": "d",
-      "description": "d",
-      "location": "d",
-      "date": "2024-08-08",
-      "contact": "222",
-      "category": "electronics"
     }
   ],
   "postslost": [
     {
-      "id": "52c8",
+      "url": "https://www.goodstuffco.in/cdn/shop/products/ProdirPenQS20MountainBlack_1480a505-8eb2-4d07-962a-65b7a5e01d6c_1200x1200.jpg?v=1643880630",
+      "id": "ba1c",
       "userId": 1,
-      "title": "Mukesh",
-      "description": "Life",
-      "category": "Electronics",
-      "location": "Movie",
-      "date": "19/12/2021",
-      "contact": "90909090"
+      "title": "pen",
+      "description": "pink pen",
+      "location": "Class G6",
+      "date": "2024-08-05",
+      "contact": "7002052768",
+      "category": "other"
     }
   ]
 }
